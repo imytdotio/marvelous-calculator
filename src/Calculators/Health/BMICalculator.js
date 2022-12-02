@@ -12,10 +12,8 @@ export const BMICalculator = (props) => {
   const [bmi, setBMI] = useState("");
 
   useEffect(() => {
-    setBMI(weight / (height ^ 2));
+    setBMI((weight / Math.pow(height / 100, 2)).toPrecision(4));
   }, [weight, height]);
-
-  
 
   return (
     <div className="border-4 border-black rounded-xl p-4 w-96 m-auto my-4 font-lato">
