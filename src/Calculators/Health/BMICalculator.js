@@ -17,7 +17,7 @@ export const BMICalculator = (props) => {
 
   return (
     <Calculator>
-      <H2>BMI Calendar</H2>
+      <H2>BMI</H2>
       <form onSubmit={() => {}}>
         <Input
           placeholder="weight (kg)"

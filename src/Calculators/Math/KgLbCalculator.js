@@ -21,7 +21,7 @@ export const KgLbCalculator = (props) => {
   };
   return (
     <Calculator>
-      <H2>⚖️ KG ↔︎ LB Calculator</H2>
+      <H2>⚖️ KG ↔︎ LB</H2>
       <form>
         <p>
           kg: <Input placeholder="kg" value={kg} onChange={kgInputHandler} />

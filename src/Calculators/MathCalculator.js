@@ -10,7 +10,7 @@ import { TemperatureCalculator } from "./Math/TemperatureCalculator";
 
 export const MathCalculator = (props) => {
   return (
-    <div className="m-8">
+    <div className="md:m-8 m-2">
       <H1>🔢 Math Calculator</H1>
       <KgLbCalculator />
       <TemperatureCalculator />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Calculator, H2, Input } from "../../Components/Components";
 
 /**
@@ -7,40 +7,61 @@ import { Calculator, H2, Input } from "../../Components/Components";
  **/
 
 export const TemperatureCalculator = (props) => {
-  const [c, setC] = useState(0);
-  const [f, setF] = useState(0);
-  const [k, setK] = useState(0);
+  const tempReducer = (state, action) => {
+    switch (action.type) {
+      case "C_USER_INPUT":
+        return {
+          c: action.payload,
+          f: ((Number(action.payload) * 9) / 5 + 32).toFixed(2),
+          k: (Number(action.payload) + 273.15).toFixed(2),
+        };
+      case "F_USER_INPUT":
+        return {
+          c: (((Number(action.payload) - 32) * 5) / 9).toFixed(2),
+          f: action.payload,
+          k: (((Number(action.payload) - 32) * 5) / 9 + 273.15).toFixed(2),
+        };
+      case "K_USER_INPUT":
+        return {
+          c: (Number(action.payload) - 273.15).toFixed(2),
+          f: (((Number(action.payload) - 273.15) * 9) / 5 + 32).toFixed(2),
+          k: action.payload,
+        };
+    }
+    return {
+      c: 0,
+      f: 0,
+      k: 0,
+    };
+  };
 
   const cInputHandler = (e) => {
-    setC(e.target.value);
-    setF(((Number(e.target.value) * 9) / 5 + 32).toFixed(2));
-    setK((Number(e.target.value) + 273.15).toFixed(2));
+    dispatchTemp({ type: "C_USER_INPUT", payload: e.target.value });
   };
-
   const fInputHandler = (e) => {
-    setF(e.target.value);
-    setC((((Number(e.target.value) - 32) * 5) / 9).toFixed(2));
-    setK((((Number(e.target.value) - 32) * 5) / 9 + 273.15).toFixed(2));
+    dispatchTemp({ type: "F_USER_INPUT", payload: e.target.value });
   };
-
   const kInputHandler = (e) => {
-    setK(e.target.value);
-    setC((Number(e.target.value) - 273.15).toFixed(2));
-    setF((((Number(e.target.value) - 273.15) * 9) / 5 + 32).toFixed(2));
+    dispatchTemp({ type: "K_USER_INPUT", payload: e.target.value });
   };
 
+  const [tempState, dispatchTemp] = useReducer(tempReducer, {
+    c: 0,
+    f: 0,
+    k: 0,
+  });
   return (
     <Calculator>
-      <H2>🌡 Temperature Calculator</H2>
+      <H2>🌡 Temperature</H2>
       <form>
         <p>
-          °C <Input value={c} onChange={cInputHandler} />
+          °C <Input value={tempState.c} onChange={cInputHandler} />
         </p>
         <p>
-          °F <Input value={f} onChange={fInputHandler} />
+          °F <Input value={tempState.f} onChange={fInputHandler} />
         </p>
         <p>
-          °K <Input value={k} onChange={kInputHandler} />
+          °K <Input value={tempState.k} onChange={kInputHandler} />
         </p>
       </form>
     </Calculator>
