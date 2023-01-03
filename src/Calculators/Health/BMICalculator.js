@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { H2, Input } from "../../Components/Components";
+import { Calculator, H2, Input } from "../../Components/Components";
 
 /**
  * @author
@@ -16,7 +16,7 @@ export const BMICalculator = (props) => {
   }, [weight, height]);
 
   return (
-    <div className="border-4 border-black rounded-xl p-4 w-96 m-auto my-4 font-lato">
+    <Calculator>
       <H2>BMI Calendar</H2>
       <form onSubmit={() => {}}>
         <Input
@@ -43,6 +43,6 @@ export const BMICalculator = (props) => {
           )}
         </p>
       </form>
-    </div>
+    </Calculator>
   );
 };

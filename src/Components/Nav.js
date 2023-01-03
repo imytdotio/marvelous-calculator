@@ -20,6 +20,9 @@ export const Nav = (props) => {
         <NavLink className={nav} activeClassName={active} to="/health" exact>
           🏋️‍♂️ Health
         </NavLink>
+        <NavLink className={nav} activeClassName={active} to="/math" exact>
+          🔢 Math
+        </NavLink>
         <NavLink className={nav} activeClassName={active} to="/date" exact>
           📆 Date
         </NavLink>

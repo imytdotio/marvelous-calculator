@@ -11,7 +11,17 @@ export const H1 = (props) => {
 
 export const H2 = (props) => {
   return (
-    <h2 className="font-bold text-2xl mb-4 font-clash">{props.children}</h2>
+    <h2 className="font-bold text-2xl mb-4 font-clash">
+      {props.children}
+    </h2>
+  );
+};
+
+export const Calculator = (props) => {
+  return (
+    <div className="border-4 border-black rounded-xl p-4 w-96 m-auto my-4 font-lato">
+      {props.children}
+    </div>
   );
 };
 
@@ -19,6 +29,7 @@ export const Input = (props) => {
   return (
     <input
       onChange={props.onChange}
+      value={props.value}
       placeholder={props.placeholder}
       className="border-b-2 border-black my-2 px-2"
     >

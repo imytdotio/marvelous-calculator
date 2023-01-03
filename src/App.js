@@ -6,6 +6,7 @@ import { Home } from "./Pages/Home";
 import { HealthCalculator } from "./Calculators/HealthCalculator";
 import { Changelog } from "./Pages/Changelog";
 import { Nav } from "./Components/Nav";
+import { MathCalculator } from "./Calculators/MathCalculator";
 function App() {
   return (
     <div className="App m-8">
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path="/date" exact>
             <DateCalculator />
+          </Route>
+          <Route path="/math" exact>
+            <MathCalculator />
           </Route>
           <Route path="/health" exact>
             <HealthCalculator />
