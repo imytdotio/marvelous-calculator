@@ -14,9 +14,19 @@ type Action =
   | { type: "CALCULATE_DAYS" }
   | { type: "SWITCH_DATES" };
 
+const today = new Date();
+
 const initialState: State = {
-  firstDate: { year: 0, month: 0, day: 0 },
-  secondDate: { year: 0, month: 0, day: 0 },
+  firstDate: {
+    year: today.getFullYear(),
+    month: today.getMonth(),
+    day: today.getDate(),
+  },
+  secondDate: {
+    year: today.getFullYear() + 1,
+    month: today.getMonth(),
+    day: today.getDate(),
+  },
   daysBetween: null,
   monthsAndDaysBetween: null,
   error: null,
@@ -117,12 +127,12 @@ const DateCalculator: React.FC = () => {
 
   return (
     <div className="m-auto w-fit">
-      <div className="flex flex-row gap-2 mb-2">
-        <h2 className="my-auto flex-1">Starting date:</h2>
+      <div className="flex flex-col lg:flex-row gap-2 mb-2">
+        <h2 className="my-auto flex-1 text-center">Starting date:</h2>
         <input
           type="number"
           value={state.firstDate.year}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_FIRST_DATE",
@@ -134,7 +144,7 @@ const DateCalculator: React.FC = () => {
         <input
           type="number"
           value={state.firstDate.month}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_FIRST_DATE",
@@ -146,7 +156,7 @@ const DateCalculator: React.FC = () => {
         <input
           type="number"
           value={state.firstDate.day}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_FIRST_DATE",
@@ -156,12 +166,12 @@ const DateCalculator: React.FC = () => {
           placeholder="Day"
         />
       </div>
-      <div className="flex flex-row gap-2 mb-2">
+      <div className="flex flex-col lg:flex-row gap-2 mb-2 text-center">
         <h2 className="my-auto flex-1">Ending Date: </h2>
         <input
           type="number"
           value={state.secondDate.year}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_SECOND_DATE",
@@ -173,7 +183,7 @@ const DateCalculator: React.FC = () => {
         <input
           type="number"
           value={state.secondDate.month}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_SECOND_DATE",
@@ -185,7 +195,7 @@ const DateCalculator: React.FC = () => {
         <input
           type="number"
           value={state.secondDate.day}
-          className="p-2 rounded-md w-32"
+          className="p-2 rounded-md lg:w-32 w-full"
           onChange={(e) =>
             dispatch({
               type: "SET_SECOND_DATE",
