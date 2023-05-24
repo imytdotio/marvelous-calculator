@@ -24,28 +24,30 @@ const initialState: State = {
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "SET_FIRST_DATE":
+    case "SET_FIRST_DATE": {
+      const { field, value } = action.payload;
+      const updatedValue = field === "month" ? Math.min(value, 12) : value;
+
       return {
         ...state,
-        firstDate: {
-          ...state.firstDate,
-          [action.payload.field]: Math.min(
-            action.payload.value,
-            action.payload.field === "month" ? 12 : Infinity
-          ),
-        },
+        firstDate: { ...state.firstDate, [field]: updatedValue },
+        error: null,
       };
+    }
     case "SET_SECOND_DATE":
-      return {
-        ...state,
-        secondDate: {
-          ...state.secondDate,
-          [action.payload.field]: Math.min(
-            action.payload.value,
-            action.payload.field === "month" ? 12 : Infinity
-          ),
-        },
-      };
+      {
+        const { field, value } = action.payload;
+        const updatedValue = field === "month" ? Math.min(value, 12) : value;
+
+        return {
+          ...state,
+          secondDate: { ...state.secondDate, [field]: updatedValue },
+          error: null,
+        };
+      }
+
+      break;
+
     case "CALCULATE_DAYS":
       const date1 = new Date(
         state.firstDate.year,
@@ -69,8 +71,29 @@ const reducer = (state: State, action: Action): State => {
       const differenceInDays = Math.round(
         differenceInTime / (1000 * 3600 * 24)
       );
-      const months = Math.floor(differenceInDays / 30);
-      const days = differenceInDays % 30;
+
+      let years, months, days;
+
+      years = date2.getFullYear() - date1.getFullYear();
+      months = date2.getMonth() - date1.getMonth();
+      days = date2.getDate() - date1.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(
+          state.secondDate.year,
+          state.secondDate.month - 1,
+          0
+        ).getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      months += years * 12;
+
       return {
         ...state,
         daysBetween: differenceInDays,
